@@ -10,8 +10,9 @@ type StyledTextProps = {
   lineHeight?: `${number}px`;
   textAlign?: "center" | "left" | "right";
   boldWeight?: 500 | 600;
-  regularWeight?: 400 | 500;
+  regularWeight?: 400 | 500 | 600;
   fontFamily?: string;
+  boldSize?: `${number}px`;
 };
 
 const StyledText = ({
@@ -24,11 +25,11 @@ const StyledText = ({
   boldWeight = 600,
   regularWeight = 400,
   fontFamily = bdSuper.style.fontFamily,
+  boldSize = size,
 }: StyledTextProps) => {
   const titleSplitted = text.split("*");
   const COMMON_TEXT_PROPS: TextProps = {
     fontFamily,
-    fontSize: size,
     display: "inline-block",
     lineHeight,
     textAlign,
@@ -39,11 +40,13 @@ const StyledText = ({
       as: "span",
       fontWeight: boldWeight,
       color: boldColor,
+      fontSize: boldSize,
       ...COMMON_TEXT_PROPS,
     },
     regular: {
       fontWeight: regularWeight,
       color: regularColor,
+      fontSize: size,
       ...COMMON_TEXT_PROPS,
     },
   };

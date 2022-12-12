@@ -5,7 +5,7 @@ export const bdSuper = localFont({
     {
       path: "../pages/fonts/bd-super/bold.woff2",
       style: "normal",
-      weight: "700",
+      weight: "600",
     },
     {
       path: "../pages/fonts/bd-super/regular.woff2",
@@ -20,7 +20,7 @@ export const urbane = localFont({
     {
       path: "../pages/fonts/urbane/bold.woff2",
       style: "normal",
-      weight: "700",
+      weight: "600",
     },
     {
       path: "../pages/fonts/urbane/medium.woff2",
