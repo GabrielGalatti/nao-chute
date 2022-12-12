@@ -1,7 +1,3 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Flex } from "@chakra-ui/react";
-
 import inovation from "../../public/images/inovation.svg";
 import HomeTemplate from "../components/templates/HomeTemplate";
 

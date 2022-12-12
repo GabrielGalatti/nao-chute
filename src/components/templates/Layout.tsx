@@ -15,9 +15,14 @@ const Layout = ({ children }: LayoutProps) => {
       bgRepeat="no-repeat"
       bgSize="cover"
     >
-      <Flex px="20%" py="50px" flexDirection="column" gap="40px">
+      <Flex
+        px={["30px", "5%", "10%", "20%"]}
+        py="50px"
+        flexDirection="column"
+        gap="40px"
+      >
         <Header />
-        <Card w="100%" minH="100%" bgColor="white">
+        <Card w="100%" minH="100%" bgColor="white" borderRadius="20px">
           <CardBody>{children}</CardBody>
         </Card>
       </Flex>
