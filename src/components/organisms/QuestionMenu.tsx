@@ -1,8 +1,8 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import { IconType } from "react-icons";
 import { FaHeartbeat, FaSquareRootAlt, FaChess } from "react-icons/fa";
-import { COLORS } from "../../config/colors";
 
+import { COLORS } from "../../config/colors";
 import { QUESTION_AREA } from "../../config/constants";
 
 type QuestionMenuProps = {
@@ -19,12 +19,15 @@ const QuestionMenu = ({ areaSelected, onClickMenuItem }: QuestionMenuProps) => {
 
   return (
     <Flex
-      flexDir="column"
+      flexDir={["row", "column", "column"]}
       gap="50px"
       alignItems="center"
       justifyContent="center"
-      borderRight={`1px solid ${COLORS.TEXT}`}
-      pr="20px"
+      borderRight={["none", `1px solid ${COLORS.TEXT}`]}
+      borderBottom={[`1px solid ${COLORS.TEXT}`, "none"]}
+      pr={["0px", "20px"]}
+      pb={["20px", "0px"]}
+      w={["100%", "auto", "auto"]}
     >
       {Object.keys(AREA_ICONS).map((area) => (
         <Icon

@@ -13,14 +13,10 @@ const Timer = ({ initialDate, onExpire }: TimerProps) => {
     return date;
   };
 
-  const { minutes, seconds } = useTimer({
-    expiryTimestamp: addMinutes(initialDate, 5),
-    onExpire,
-  });
-
-  useEffect(() => {
-    console.log("minutes", minutes);
-  }, [minutes]);
+  // const { minutes, seconds } = useTimer({
+  //   expiryTimestamp: addMinutes(initialDate, 5),
+  //   onExpire,
+  // });
 
   return (
     <StyledText
@@ -29,9 +25,9 @@ const Timer = ({ initialDate, onExpire }: TimerProps) => {
       lineHeight="24px"
       regularWeight={600}
       boldWeight={600}
-      text={`Tempo Restante:*<br>* *<b>${minutes}:${seconds}<b>*`}
+      text={`Tempo Restante:*<br>* *<b>${5}:00<b>*`}
       textAlign="right"
-      key="title"
+      key="timer"
     />
   );
 };

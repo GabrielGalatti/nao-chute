@@ -16,7 +16,11 @@ const QuestionHeader = ({
   onExpire,
 }: QuestionHeaderProps) => {
   return (
-    <Flex justifyContent="space-between" alignItems="center" w="100%">
+    <Flex
+      justifyContent="space-between"
+      alignItems={["flex-start", "center"]}
+      w="100%"
+    >
       <StyledText
         size="18px"
         boldSize="24px"
