@@ -39,7 +39,7 @@ const HelpModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent minW="50%" py="20px">
+      <ModalContent py="20px" minW="40%">
         <ModalHeader
           fontFamily={bdSuper.style.fontFamily}
           fontSize="24px"

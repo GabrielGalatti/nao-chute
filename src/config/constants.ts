@@ -1,0 +1,5 @@
+export enum QUESTION_AREA {
+  EXATAS = "EXATAS",
+  BIOLOGICAS = "BIOLÓGICAS",
+  HUMANAS = "HUMANAS",
+}

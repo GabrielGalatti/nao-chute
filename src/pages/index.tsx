@@ -1,7 +1,11 @@
+import { useRouter } from "next/router";
+
 import inovation from "../../public/images/inovation.svg";
 import HomeTemplate from "../components/templates/HomeTemplate";
 
 const Home = () => {
+  const router = useRouter();
+
   return (
     <HomeTemplate
       btnLabel="INICIAR QUESTÕES"
@@ -10,7 +14,7 @@ const Home = () => {
         Com *<b>apenas 15 minutos por dias<b>* você assume a liderança na corrida *<br>* para sua tão sonhada vaga"
       image={inovation}
       imgAlt="Aprenda jogando!"
-      onClickStart={() => {}}
+      onClickStart={() => router.push("/start")}
     />
   );
 };

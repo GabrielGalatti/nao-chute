@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useTimer } from "react-timer-hook";
 import StyledText from "../atoms/StyledText";
 
@@ -17,15 +18,19 @@ const Timer = ({ initialDate, onExpire }: TimerProps) => {
     onExpire,
   });
 
+  useEffect(() => {
+    console.log("minutes", minutes);
+  }, [minutes]);
+
   return (
     <StyledText
-      size="24px"
-      boldSize="36px"
+      size="18px"
+      boldSize="24px"
+      lineHeight="24px"
       regularWeight={600}
       boldWeight={600}
       text={`Tempo Restante:*<br>* *<b>${minutes}:${seconds}<b>*`}
-      textAlign="center"
-      lineHeight="40px"
+      textAlign="right"
       key="title"
     />
   );
