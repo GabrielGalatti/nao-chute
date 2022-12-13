@@ -1,6 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import Image from "next/image";
+
 import { urbane } from "../../config/fonts";
+
 import CommonButton from "../atoms/CommonButton";
 import StyledText from "../atoms/StyledText";
 
@@ -10,6 +12,7 @@ type HomeTemplateProps = {
   title: string;
   description: string;
   btnLabel: string;
+  onClickStart: () => void;
 };
 
 const HomeTemplate = ({
@@ -18,6 +21,7 @@ const HomeTemplate = ({
   btnLabel,
   description,
   title,
+  onClickStart,
 }: HomeTemplateProps) => {
   return (
     <Flex
@@ -47,7 +51,7 @@ const HomeTemplate = ({
         textAlign="center"
         key="description"
       />
-      <CommonButton label={btnLabel} onClick={() => {}} />
+      <CommonButton label={btnLabel} onClick={onClickStart} />
     </Flex>
   );
 };

@@ -5,7 +5,11 @@ import { BsQuestionLg, BsInstagram } from "react-icons/bs";
 import logo from "../../../public/images/logo.png";
 import { COLORS } from "../../config/colors";
 
-const Header = () => {
+type HeaderProps = {
+  onClickHowToPlay: () => void;
+};
+
+const Header = ({ onClickHowToPlay }: HeaderProps) => {
   return (
     <Flex w="100%" justifyContent="space-between" alignItems="center">
       <Image alt="Não Chute!" src={logo} height={60} />
@@ -16,6 +20,8 @@ const Header = () => {
           size="md"
           variant="outline"
           color={COLORS.WHITE}
+          borderWidth={2}
+          onClick={onClickHowToPlay}
           _hover={{ color: COLORS.PRIMARY, bg: COLORS.WHITE }}
         />
         <IconButton
@@ -24,6 +30,7 @@ const Header = () => {
           size="md"
           variant="outline"
           color={COLORS.WHITE}
+          borderWidth={2}
           _hover={{ color: COLORS.PRIMARY, bg: COLORS.WHITE }}
         />
       </Flex>
