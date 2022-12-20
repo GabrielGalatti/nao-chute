@@ -1,19 +1,13 @@
 import { Dispatch } from "react";
 
-import { Question } from "../../types/Question";
-import { QuestionAnswer } from "../../types/QuestionAnswer";
-import { QuestionAction, QUESTION_ACTION_TYPES } from "./types";
-
-const initializeQuestions = (
-  questions: Question[],
-  dispatch: Dispatch<QuestionAction>
-) => {
-  localStorage.setItem("questions", JSON.stringify(questions));
-  dispatch({
-    action: QUESTION_ACTION_TYPES.INIT_QUESTIONS,
-    payload: questions,
-  });
-};
+import {
+  QuestionAction,
+  QuestionPossibleActions,
+  QUESTION_ACTION_TYPES,
+  QuestionAnswer,
+  QuestionTime,
+  QuestionStatus,
+} from "./types";
 
 const answerQuestion = (
   questionAnswer: QuestionAnswer,
@@ -26,9 +20,34 @@ const answerQuestion = (
   });
 };
 
-export const questionActions = (dispatch: Dispatch<QuestionAction>) => ({
-  initializeQuestions: (questions: Question[]) =>
-    initializeQuestions(questions, dispatch),
+const setQuestionTimes = (
+  questionTime: QuestionTime,
+  dispatch: Dispatch<QuestionAction>
+) => {
+  // Ver como salvar tempo de resposta do usuário no localStorage
+  dispatch({
+    action: QUESTION_ACTION_TYPES.SET_QUESTION_TIMES,
+    payload: questionTime,
+  });
+};
+
+const setQuestionStatus = (
+  questionStatus: QuestionStatus,
+  dispatch: Dispatch<QuestionAction>
+) => {
+  dispatch({
+    action: QUESTION_ACTION_TYPES.SET_QUESTION_STATUS,
+    payload: questionStatus,
+  });
+};
+
+export const questionActions = (
+  dispatch: Dispatch<QuestionAction>
+): QuestionPossibleActions => ({
   answerQuestion: (questionAnswer: QuestionAnswer) =>
     answerQuestion(questionAnswer, dispatch),
+  setQuestionTimes: (questionTime: QuestionTime) =>
+    setQuestionTimes(questionTime, dispatch),
+  setQuestionStatus: (questionStatus: QuestionStatus) =>
+    setQuestionStatus(questionStatus, dispatch),
 });

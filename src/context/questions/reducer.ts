@@ -1,27 +1,67 @@
-import { Question } from "../../types/Question";
-import { QuestionAnswer } from "../../types/QuestionAnswer";
-import { QuestionAction, QUESTION_ACTION_TYPES } from "./types";
+import {
+  QuestionAction,
+  QuestionContextState,
+  QUESTION_ACTION_TYPES,
+  QuestionTime,
+  QuestionAnswer,
+  QuestionStatus,
+  QuestionState,
+} from "./types";
 
 export const questionsReducer = (
-  prevState: Question[],
+  prevState: QuestionContextState,
   action: QuestionAction
-): Question[] => {
-  const possibleActions = {
-    [QUESTION_ACTION_TYPES.INIT_QUESTIONS]: () => action.payload as Question[],
+): QuestionContextState => {
+  const question = prevState.questions.find(
+    (q) => q.id === action.payload.questionId
+  ) as QuestionState;
+
+  const possibleActions: {
+    [key in QUESTION_ACTION_TYPES]: () => QuestionContextState;
+  } = {
     [QUESTION_ACTION_TYPES.ANSWER_QUESTION]: () => {
       const questionAnswer = action.payload as QuestionAnswer;
-      const question = prevState.find(
-        (question) => question.id === questionAnswer.questionId
-      ) as Question;
-      return prevState
-        .filter((q) => q.id !== questionAnswer.questionId)
-        .concat({
-          ...question,
-          answers: question.answers.map((answer) => ({
-            ...answer,
-            selected: answer.id === questionAnswer.answerId,
-          })),
-        });
+
+      return {
+        questions: [
+          ...prevState.questions.filter(
+            (q) => q.id !== questionAnswer.questionId
+          ),
+          {
+            ...question,
+            answerId: questionAnswer.answerId,
+          },
+        ],
+      };
+    },
+    [QUESTION_ACTION_TYPES.SET_QUESTION_TIMES]: () => {
+      const questionTime = action.payload as QuestionTime;
+
+      return {
+        questions: [
+          ...prevState.questions.filter(
+            (q) => q.id !== questionTime.questionId
+          ),
+          {
+            ...question,
+            initialDate: questionTime.initialDate,
+          },
+        ],
+      };
+    },
+    [QUESTION_ACTION_TYPES.SET_QUESTION_STATUS]: () => {
+      const questionStatus = action.payload as QuestionStatus;
+      return {
+        questions: [
+          ...prevState.questions.filter(
+            (q) => q.id !== questionStatus.questionId
+          ),
+          {
+            ...question,
+            status: questionStatus.status,
+          },
+        ],
+      };
     },
   };
 
