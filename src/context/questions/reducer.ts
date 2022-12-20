@@ -29,6 +29,7 @@ export const questionsReducer = (
           ),
           {
             ...question,
+            id: questionAnswer.questionId,
             answerId: questionAnswer.answerId,
           },
         ],
@@ -44,6 +45,7 @@ export const questionsReducer = (
           ),
           {
             ...question,
+            id: questionTime.questionId,
             initialDate: questionTime.initialDate,
           },
         ],

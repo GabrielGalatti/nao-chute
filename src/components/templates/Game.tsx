@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { QUESTION_AREA } from "../../config/constants";
+import { AnswerType } from "../../types/Answer";
 import Question from "../organisms/Question";
 import QuestionHeader from "../organisms/QuestionHeader";
 import QuestionMenu from "../organisms/QuestionMenu";
@@ -11,6 +12,8 @@ type GameProps = {
   onChooseArea: (area: QUESTION_AREA) => void;
   onChooseAnswer: (answerId: number) => void;
   selectedAnswerIndex?: number;
+  answers: AnswerType[];
+  questionStatement: string;
 };
 
 const Game = ({
@@ -20,6 +23,8 @@ const Game = ({
   onChooseArea,
   onChooseAnswer,
   selectedAnswerIndex,
+  answers,
+  questionStatement,
 }: GameProps) => {
   return (
     <Flex flexDirection="column">
@@ -35,10 +40,18 @@ const Game = ({
         flexDirection={["column", "row"]}
       >
         <QuestionMenu areaSelected={area} onClickMenuItem={onChooseArea} />
-        <Flex flex={1} px={["0px", "40px"]} pt={["20px", "0px"]}>
+        <Flex
+          flex={1}
+          px={["0px", "40px"]}
+          pt={["20px", "0px"]}
+          overflowY="auto"
+          maxH="60vh"
+        >
           <Question
             onChooseAnswer={onChooseAnswer}
             selectAnswerIndex={selectedAnswerIndex}
+            answers={answers}
+            questionStatement={questionStatement}
           />
         </Flex>
       </Flex>

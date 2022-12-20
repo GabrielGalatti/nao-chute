@@ -1,44 +1,47 @@
+import { Box, Flex } from "@chakra-ui/react";
+import { useCallback, useEffect, useRef } from "react";
+import { urbane } from "../../config/fonts";
+
+import { AnswerType } from "../../types/Answer";
 import AnswerGroup from "../molecules/AnswerGroup";
 
 type QuestionProps = {
   onChooseAnswer: (id: number) => void;
   selectAnswerIndex?: number;
+  answers: AnswerType[];
+  questionStatement: string;
 };
 
-const Question = ({ onChooseAnswer, selectAnswerIndex }: QuestionProps) => {
-  const answers = [
-    {
-      label:
-        "(A) hidrelétrica, porque a água corrente baixa a temperatura da turbina.",
-      id: 1,
-    },
-    {
-      label:
-        "(B) hidrelétrica, porque a usina faz uso da energia cinética da água.",
-      id: 2,
-    },
-    {
-      label:
-        "(C) termoelétrica, porque no movimento das turbinas ocorre aquecimento.",
-      id: 3,
-    },
-    {
-      label: "(D) eólica, porque a turbina é movida pelo movimento da água.",
-      id: 4,
-    },
-    {
-      label:
-        "(E) nuclear, porque a energia é obtida do núcleo das moléculas de água",
-      id: 5,
-    },
-  ];
+const Question = ({
+  onChooseAnswer,
+  selectAnswerIndex,
+  answers,
+  questionStatement,
+}: QuestionProps) => {
+  const divRef = useRef<HTMLDivElement>(null);
+
+  const updateQuestionStatement = useCallback(() => {
+    if (!divRef.current) return;
+    divRef.current.innerHTML = questionStatement;
+  }, [questionStatement]);
+
+  useEffect(() => {
+    updateQuestionStatement();
+  }, [updateQuestionStatement]);
 
   return (
-    <AnswerGroup
-      answers={answers}
-      onClick={onChooseAnswer}
-      selectedAnswerIndex={selectAnswerIndex}
-    />
+    <Flex flexDirection="column" gap="30px">
+      <Box
+        ref={divRef}
+        justifyContent="center"
+        className={urbane.className}
+      ></Box>
+      <AnswerGroup
+        answers={answers}
+        onClick={onChooseAnswer}
+        selectedAnswerIndex={selectAnswerIndex}
+      />
+    </Flex>
   );
 };
 

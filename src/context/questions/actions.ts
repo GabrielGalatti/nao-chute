@@ -14,6 +14,7 @@ const answerQuestion = (
   dispatch: Dispatch<QuestionAction>
 ) => {
   // Ver como salvar respostas do usuário no localStorage
+  console.log("answerQuestion", questionAnswer);
   dispatch({
     action: QUESTION_ACTION_TYPES.ANSWER_QUESTION,
     payload: questionAnswer,

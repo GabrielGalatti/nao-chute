@@ -18,7 +18,7 @@ const INITIAL_STATE = {
   questions: [],
 } as QuestionContextState;
 
-const QuestionsContext = createContext({
+export const QuestionsContext = createContext({
   state: INITIAL_STATE,
   actions: {
     answerQuestion: (questionAnswer: QuestionAnswer) => {},
@@ -29,7 +29,7 @@ const QuestionsContext = createContext({
 const QuestionsProvider = ({ children }: QuestionsProviderProps) => {
   const [state, dispatch] = useReducer(questionsReducer, INITIAL_STATE);
 
-  const actions = useMemo(() => questionActions(dispatch), [dispatch]);
+  const actions = useMemo(() => questionActions(dispatch), []);
 
   return (
     <QuestionsContext.Provider value={{ actions, state }}>
