@@ -1,4 +1,5 @@
 export type AnswerType = {
   id: number;
-  text: string;
+  label: string;
+  selected?: boolean;
 };

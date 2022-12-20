@@ -26,7 +26,7 @@ const Answer = ({ isSelected, answer, onClick }: AnswerProps) => {
         color={isSelected ? COLORS.WHITE : COLORS.TEXT}
         fontSize="14px"
       >
-        {answer.text}
+        {answer.label}
       </Text>
     </Box>
   );

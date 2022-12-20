@@ -8,23 +8,27 @@ type QuestionProps = {
 const Question = ({ onChooseAnswer, selectAnswerIndex }: QuestionProps) => {
   const answers = [
     {
-      text: "(A) hidrelétrica, porque a água corrente baixa a temperatura da turbina.",
+      label:
+        "(A) hidrelétrica, porque a água corrente baixa a temperatura da turbina.",
       id: 1,
     },
     {
-      text: "(B) hidrelétrica, porque a usina faz uso da energia cinética da água.",
+      label:
+        "(B) hidrelétrica, porque a usina faz uso da energia cinética da água.",
       id: 2,
     },
     {
-      text: "(C) termoelétrica, porque no movimento das turbinas ocorre aquecimento.",
+      label:
+        "(C) termoelétrica, porque no movimento das turbinas ocorre aquecimento.",
       id: 3,
     },
     {
-      text: "(D) eólica, porque a turbina é movida pelo movimento da água.",
+      label: "(D) eólica, porque a turbina é movida pelo movimento da água.",
       id: 4,
     },
     {
-      text: "(E) nuclear, porque a energia é obtida do núcleo das moléculas de água",
+      label:
+        "(E) nuclear, porque a energia é obtida do núcleo das moléculas de água",
       id: 5,
     },
   ];
