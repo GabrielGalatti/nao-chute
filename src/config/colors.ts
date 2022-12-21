@@ -4,4 +4,6 @@ export enum COLORS {
   TEXT = "#000000",
   WHITE = "#FFFFFF",
   GRAY = "#EAEAEA",
+  SUCCESS = "#00AF5B",
+  ERROR = "#DF4D7A",
 }

@@ -54,6 +54,7 @@ const AnswerGroup = ({
             answer={answer}
             onClick={onClick}
             isSelected={selectedAnswerIndex === answer.id}
+            correctAnswerId={result?.correctAnswer.id}
           />
         </Flex>
       ))}
