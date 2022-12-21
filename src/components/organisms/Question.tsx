@@ -55,7 +55,8 @@ const Question = ({
           justifyContent="center"
           alignItems="center"
           flexDirection="column"
-          py="10px"
+          py="15px"
+          borderBottom={`1px solid black`}
         >
           <Image
             src={
@@ -88,6 +89,7 @@ const Question = ({
           status !== QUESTION_STATUS.FINISHED ? onChooseAnswer : () => {}
         }
         selectedAnswerIndex={selectAnswerIndex}
+        result={result}
       />
     </Flex>
   );
