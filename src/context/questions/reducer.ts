@@ -6,6 +6,7 @@ import {
   QuestionAnswer,
   QuestionStatus,
   QuestionState,
+  QUESTION_STATUS,
 } from "./types";
 
 export const questionsReducer = (
@@ -31,6 +32,8 @@ export const questionsReducer = (
             ...question,
             id: questionAnswer.questionId,
             answerId: questionAnswer.answerId,
+            status: QUESTION_STATUS.FINISHED,
+            result: questionAnswer.result,
           },
         ],
       };

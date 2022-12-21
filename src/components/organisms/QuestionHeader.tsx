@@ -1,5 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { QUESTION_AREA } from "../../config/constants";
+import { QUESTION_STATUS } from "../../context/questions/types";
 
 import StyledText from "../atoms/StyledText";
 import Timer from "../molecules/Timer";
@@ -8,12 +9,14 @@ type QuestionHeaderProps = {
   area: QUESTION_AREA;
   initialDate: Date;
   onExpire: () => void;
+  status: QUESTION_STATUS;
 };
 
 const QuestionHeader = ({
   area,
   initialDate,
   onExpire,
+  status,
 }: QuestionHeaderProps) => {
   return (
     <Flex
@@ -31,7 +34,20 @@ const QuestionHeader = ({
         lineHeight="24px"
         key="title"
       />
-      <Timer initialDate={initialDate} onExpire={onExpire} />
+      {status !== QUESTION_STATUS.FINISHED ? (
+        <Timer initialDate={initialDate} onExpire={onExpire} />
+      ) : (
+        <StyledText
+          size="18px"
+          boldSize="24px"
+          regularWeight={600}
+          boldWeight={600}
+          text={`QUESTÃO*<br>* *<b>FINALIZADA<b>*`}
+          textAlign="right"
+          lineHeight="24px"
+          key="title"
+        />
+      )}
     </Flex>
   );
 };

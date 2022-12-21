@@ -1,6 +1,12 @@
 import { Flex } from "@chakra-ui/react";
+
 import { QUESTION_AREA } from "../../config/constants";
+
+import { QUESTION_STATUS } from "../../context/questions/types";
+
 import { AnswerType } from "../../types/Answer";
+import { Result } from "../../types/Result";
+
 import Question from "../organisms/Question";
 import QuestionHeader from "../organisms/QuestionHeader";
 import QuestionMenu from "../organisms/QuestionMenu";
@@ -14,6 +20,8 @@ type GameProps = {
   selectedAnswerIndex?: number;
   answers: AnswerType[];
   questionStatement: string;
+  questionStatus: QUESTION_STATUS;
+  result?: Result;
 };
 
 const Game = ({
@@ -25,6 +33,8 @@ const Game = ({
   selectedAnswerIndex,
   answers,
   questionStatement,
+  result,
+  questionStatus,
 }: GameProps) => {
   return (
     <Flex flexDirection="column">
@@ -32,6 +42,7 @@ const Game = ({
         area={area}
         initialDate={initialDate}
         onExpire={onExpire}
+        status={questionStatus}
       />
       <Flex
         justifyContent="flex-start"
@@ -52,6 +63,8 @@ const Game = ({
             selectAnswerIndex={selectedAnswerIndex}
             answers={answers}
             questionStatement={questionStatement}
+            result={result}
+            status={questionStatus}
           />
         </Flex>
       </Flex>

@@ -28,3 +28,8 @@ body {
     background: black;
   }
 }
+
+.image {
+  display: flex;
+  justify-content: center;
+}

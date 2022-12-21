@@ -1,3 +1,5 @@
+import { Result } from "../../types/Result";
+
 export enum QUESTION_STATUS {
   FINISHED = "FINISHED",
   STARTED = "STARTED",
@@ -6,6 +8,7 @@ export enum QUESTION_STATUS {
 export type QuestionAnswer = {
   questionId: number;
   answerId: number;
+  result: Result;
 };
 
 export type QuestionTime = {
@@ -34,6 +37,7 @@ export type QuestionState = {
   status?: QUESTION_STATUS;
   initialDate?: string;
   answerId?: number;
+  result?: Result;
 };
 
 export type QuestionContextState = {
