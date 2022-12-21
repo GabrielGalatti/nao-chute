@@ -22,7 +22,7 @@ const AnswerGroup = ({
   const getProgressValue = (id: number) => {
     if (!result) return 0;
     const n = result.result[id.toString()] || 0;
-    return Math.trunc((n * 100) / result.numberOfAnswers);
+    return Math.trunc(((n * 100) / result.numberOfAnswers) * 10) / 10;
   };
 
   return (
@@ -38,9 +38,7 @@ const AnswerGroup = ({
                   fontWeight={600}
                   color={COLORS.TEXT}
                 >
-                  {getProgressValue(answer.id) === 0
-                    ? "Calculando"
-                    : `${getProgressValue(answer.id)}%`}
+                  {`${getProgressValue(answer.id)}%`}
                 </Text>
               </Flex>
               <Progress
