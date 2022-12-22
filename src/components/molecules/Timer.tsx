@@ -1,22 +1,21 @@
-import { useEffect } from "react";
-import { useTimer } from "react-timer-hook";
+import { useEffect, useMemo } from "react";
+import useTimer from "../../hooks/useTimer";
 import StyledText from "../atoms/StyledText";
 
 type TimerProps = {
-  initialDate: Date;
   onExpire: () => void;
 };
 
-const Timer = ({ initialDate, onExpire }: TimerProps) => {
-  const addMinutes = (date: Date, minutes: number) => {
-    date.setMinutes(date.getMinutes() + minutes);
-    return date;
-  };
+const Timer = ({ onExpire }: TimerProps) => {
+  const { minutes, seconds } = useTimer({
+    seconds: 10,
+    onExpire,
+  });
 
-  // const { minutes, seconds } = useTimer({
-  //   expiryTimestamp: addMinutes(initialDate, 5),
-  //   onExpire,
-  // });
+  const timerString = useMemo(
+    () => `Tempo Restante:*<br>* *<b>${minutes}:${seconds}<b>*`,
+    [minutes, seconds]
+  );
 
   return (
     <StyledText
@@ -25,7 +24,7 @@ const Timer = ({ initialDate, onExpire }: TimerProps) => {
       lineHeight="24px"
       regularWeight={600}
       boldWeight={600}
-      text={`Tempo Restante:*<br>* *<b>${5}:00<b>*`}
+      text={timerString}
       textAlign="right"
       key="timer"
     />

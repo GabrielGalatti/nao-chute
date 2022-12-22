@@ -26,7 +26,7 @@ const Start = ({ apiQuestions }: StartProps) => {
 
   const {
     state: { questions },
-    actions: { answerQuestion },
+    actions: { answerQuestion, setQuestionStatus },
   } = useContext(QuestionsContext);
 
   const { statement, answers, id } = useMemo(() => {
@@ -47,6 +47,13 @@ const Start = ({ apiQuestions }: StartProps) => {
       status: q.status || QUESTION_STATUS.STARTED,
     };
   }, [questions, id]);
+
+  const onTimeIsOver = useCallback(() => {
+    setQuestionStatus({
+      questionId: id,
+      status: QUESTION_STATUS.FINISHED,
+    });
+  }, [id, setQuestionStatus]);
 
   const chooseAnswer = useCallback(
     async (answerId: number) => {
@@ -76,9 +83,8 @@ const Start = ({ apiQuestions }: StartProps) => {
   return (
     <Game
       area={area}
-      initialDate={initialDate}
       onChooseArea={(selectedArea) => setArea(selectedArea)}
-      onExpire={console.log}
+      onExpire={onTimeIsOver}
       onChooseAnswer={chooseAnswer}
       selectedAnswerIndex={selectedAnswer}
       answers={answers}

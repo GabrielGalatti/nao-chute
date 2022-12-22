@@ -58,6 +58,7 @@ const Question = ({
             justifyContent="center"
             alignItems="center"
             flexDirection="column"
+            gap="20px"
             py="15px"
             borderBottom={`1px solid black`}
           >
@@ -72,14 +73,14 @@ const Question = ({
             />
             <StyledText
               size="18px"
-              boldSize="24px"
+              boldSize="32px"
               lineHeight="24px"
               regularWeight={600}
               boldWeight={600}
               text={
                 result && result.correctAnswer.id === selectAnswerIndex
                   ? "PARABÉNS, *<b>VOCÊ ACERTOU!!!<b>*"
-                  : "*<b>ERRADO!!!<b>* MAS AMANHÃ TEM MAIS!"
+                  : "*<b>ERRADO!!!<b>* *<br>* Selecione a próxima questão no menu à esquerda!"
               }
               textAlign="center"
               key="result-title"

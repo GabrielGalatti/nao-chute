@@ -13,7 +13,6 @@ import QuestionMenu from "../organisms/QuestionMenu";
 
 type GameProps = {
   area: QUESTION_AREA;
-  initialDate: Date;
   onExpire: () => void;
   onChooseArea: (area: QUESTION_AREA) => void;
   onChooseAnswer: (answerId: number) => void;
@@ -26,7 +25,6 @@ type GameProps = {
 
 const Game = ({
   area,
-  initialDate,
   onExpire,
   onChooseArea,
   onChooseAnswer,
@@ -38,12 +36,7 @@ const Game = ({
 }: GameProps) => {
   return (
     <Flex flexDirection="column">
-      <QuestionHeader
-        area={area}
-        initialDate={initialDate}
-        onExpire={onExpire}
-        status={questionStatus}
-      />
+      <QuestionHeader area={area} onExpire={onExpire} status={questionStatus} />
       <Flex
         justifyContent="flex-start"
         w="100%"

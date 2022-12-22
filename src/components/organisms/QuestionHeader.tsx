@@ -3,21 +3,16 @@ import { QUESTION_AREA } from "../../config/constants";
 import { QUESTION_STATUS } from "../../context/questions/types";
 
 import StyledText from "../atoms/StyledText";
+import DynamicTimer from "../molecules/DynamicTimer";
 import Timer from "../molecules/Timer";
 
 type QuestionHeaderProps = {
   area: QUESTION_AREA;
-  initialDate: Date;
   onExpire: () => void;
   status: QUESTION_STATUS;
 };
 
-const QuestionHeader = ({
-  area,
-  initialDate,
-  onExpire,
-  status,
-}: QuestionHeaderProps) => {
+const QuestionHeader = ({ area, onExpire, status }: QuestionHeaderProps) => {
   return (
     <Flex
       justifyContent="space-between"
@@ -35,7 +30,7 @@ const QuestionHeader = ({
         key="title"
       />
       {status !== QUESTION_STATUS.FINISHED ? (
-        <Timer initialDate={initialDate} onExpire={onExpire} />
+        <DynamicTimer onExpire={onExpire} />
       ) : (
         <StyledText
           size="18px"
