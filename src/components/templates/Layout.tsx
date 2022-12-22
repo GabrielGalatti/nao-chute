@@ -3,6 +3,7 @@ import { Box, Card, CardBody, Flex, useDisclosure } from "@chakra-ui/react";
 import Header from "../organisms/Header";
 import HelpModal from "./HelpModal";
 import game from "../../../public/images/game.svg";
+import { useEffect } from "react";
 type LayoutProps = {
   children: React.ReactNode;
 };
@@ -14,6 +15,9 @@ const Layout = ({ children }: LayoutProps) => {
     "Você terá acesso à uma análise dos seus resultados",
   ];
   const { onClose, onOpen, isOpen } = useDisclosure();
+  useEffect(() => {
+    onOpen();
+  }, [onOpen]);
   return (
     <Box
       minH="100vh"
