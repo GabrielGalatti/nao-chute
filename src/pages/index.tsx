@@ -13,6 +13,18 @@ const Home = () => {
     <>
       <Head>
         <title>Não Chute</title>
+        <meta
+          property="og:image"
+          itemProp="image"
+          content={"/images/NãoChute.png"}
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:description"
+          content="Se divirta enquanto estuda para o vestibular"
+        />
+        <meta property="og:site_name" content="Não Chute" />
+        <meta property="og:title" content="Não Chute" />
       </Head>
       <HomeTemplate
         btnLabel="INICIAR QUESTÕES"
