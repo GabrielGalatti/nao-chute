@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import useSound from "use-sound";
 
 import Game from "../components/templates/Game";
 
@@ -25,15 +26,11 @@ type StartProps = {
   apiQuestions: Question[];
 };
 
-type CurrentState = {
-  selectedAnswer?: number;
-  result?: Result;
-  status: QUESTION_STATUS;
-  secondsLeft: number;
-};
-
 const Start = ({ apiQuestions }: StartProps) => {
   const [area, setArea] = useState<QUESTION_AREA>(QUESTION_AREA.EXATAS);
+  const [startWinAudio] = useSound("/sounds/win.mp3");
+  const [startWrongAudio] = useSound("/sounds/wrong.mp3");
+
   const currentTimer = useRef<NodeJS.Timer | null>(null);
   const currentSeconds = useRef<number>(180);
 
@@ -83,6 +80,12 @@ const Start = ({ apiQuestions }: StartProps) => {
     [id, answerQuestion]
   );
 
+  const playAudio = useCallback(() => {
+    if (!result) return;
+    else if (result.correctAnswer.id == selectedAnswer) startWinAudio();
+    else startWrongAudio();
+  }, [result, selectedAnswer, startWinAudio, startWrongAudio]);
+
   const updateQuestionTimes = (secondsLeft: number, interval: NodeJS.Timer) => {
     currentTimer.current = interval;
     currentSeconds.current = secondsLeft;
@@ -97,15 +100,6 @@ const Start = ({ apiQuestions }: StartProps) => {
     }
   }, [id, setQuestionTimes, questionId]);
 
-  useEffect(() => {
-    initializeQuestion();
-  }, [initializeQuestion]);
-
-  useEffect(() => {
-    console.log("id", id);
-    console.log("secondsLeft", secondsLeft);
-  }, [secondsLeft, id]);
-
   const selectArea = (selectedArea: QUESTION_AREA) => {
     if (currentTimer.current) {
       clearInterval(currentTimer.current);
@@ -117,6 +111,14 @@ const Start = ({ apiQuestions }: StartProps) => {
     });
     setArea(selectedArea);
   };
+
+  useEffect(() => {
+    initializeQuestion();
+  }, [initializeQuestion]);
+
+  useEffect(() => {
+    playAudio();
+  }, [playAudio]);
 
   return (
     <Game
