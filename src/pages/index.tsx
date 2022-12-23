@@ -9,6 +9,7 @@ import HomeTemplate from "../components/templates/HomeTemplate";
 const Home = () => {
   const router = useRouter();
   const [startAudio] = useSound("/sounds/start.mp3");
+
   return (
     <>
       <Head>
