@@ -49,7 +49,7 @@ export const questionsReducer = (
           {
             ...question,
             id: questionTime.questionId,
-            initialDate: questionTime.initialDate,
+            secondsLeft: questionTime.secondsLeft,
           },
         ],
       };
@@ -63,7 +63,9 @@ export const questionsReducer = (
           ),
           {
             ...question,
+            id: questionStatus.questionId,
             status: questionStatus.status,
+            result: questionStatus.result,
           },
         ],
       };

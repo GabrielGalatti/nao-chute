@@ -13,12 +13,13 @@ export type QuestionAnswer = {
 
 export type QuestionTime = {
   questionId: number;
-  initialDate: string;
+  secondsLeft: number;
 };
 
 export type QuestionStatus = {
   questionId: number;
   status: QUESTION_STATUS;
+  result?: Result;
 };
 
 export enum QUESTION_ACTION_TYPES {
@@ -35,7 +36,7 @@ export type QuestionAction = {
 export type QuestionState = {
   id: number;
   status?: QUESTION_STATUS;
-  initialDate?: string;
+  secondsLeft?: number;
   answerId?: number;
   result?: Result;
 };

@@ -5,6 +5,10 @@ import Game from "../components/templates/Game";
 import { QUESTION_AREA } from "../config/constants";
 import { QuestionsContext } from "../context/questions";
 import { QuestionState, QUESTION_STATUS } from "../context/questions/types";
+import {
+  answerQuestionRequest,
+  getQuestionResultrequest,
+} from "../services/question";
 
 import { ApiResponse } from "../types/ApiResponse";
 import { Question } from "../types/Question";
@@ -26,7 +30,7 @@ const Start = ({ apiQuestions }: StartProps) => {
 
   const {
     state: { questions },
-    actions: { answerQuestion, setQuestionStatus },
+    actions: { answerQuestion, setQuestionStatus, setQuestionTimes },
   } = useContext(QuestionsContext);
 
   const { statement, answers, id } = useMemo(() => {
@@ -48,28 +52,27 @@ const Start = ({ apiQuestions }: StartProps) => {
     };
   }, [questions, id]);
 
-  const onTimeIsOver = useCallback(() => {
+  useEffect(() => {
+    console.log(result);
+  }, [result]);
+
+  const onTimeIsOver = useCallback(async () => {
+    const response = await getQuestionResultrequest(id);
+    if (!response.ok) return;
+    const { data } = (await response.json()) as ApiResponse<Result>;
+
     setQuestionStatus({
       questionId: id,
       status: QUESTION_STATUS.FINISHED,
+      result: data,
     });
   }, [id, setQuestionStatus]);
 
   const chooseAnswer = useCallback(
     async (answerId: number) => {
-      const response = await fetch("http://localhost:1337/api/user-answers", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          authorization: `Bearer bd3af4ff805d42c2783c4d7c1bddac502be8b92f13c5bebf03240ca9b70548878fd7f6fa689e82bf04f6264d38d686bedb6b65ef8553f16665053a0903185d0a8e31bee296697a0559b296ce3d611521eefff7b0daf16908ef391ff0438fbd25976a6c302318951fc8468aaa4b898e3ee2a785e2fca266c44f397c71299253b4`,
-        },
-        body: JSON.stringify({
-          data: {
-            question: id,
-            answer: answerId,
-          },
-        }),
+      const response = await answerQuestionRequest({
+        answerId,
+        questionId: id,
       });
 
       if (!response.ok) return;
@@ -78,6 +81,17 @@ const Start = ({ apiQuestions }: StartProps) => {
       answerQuestion({ questionId: id, answerId, result: data });
     },
     [id, answerQuestion]
+  );
+
+  const changeArea = useCallback(
+    (selectedArea: QUESTION_AREA) => {
+      setQuestionTimes({
+        questionId: id,
+        secondsLeft: 180,
+      });
+      setArea(selectedArea);
+    },
+    [setQuestionTimes, setArea, id]
   );
 
   return (
@@ -98,13 +112,16 @@ const Start = ({ apiQuestions }: StartProps) => {
 export default Start;
 
 export async function getStaticProps(context: any) {
-  const response = await fetch("http://localhost:1337/api/questions/current", {
-    method: "GET",
-    headers: new Headers({
-      "Content-Type": "application/json",
-      authorization: `Bearer bd3af4ff805d42c2783c4d7c1bddac502be8b92f13c5bebf03240ca9b70548878fd7f6fa689e82bf04f6264d38d686bedb6b65ef8553f16665053a0903185d0a8e31bee296697a0559b296ce3d611521eefff7b0daf16908ef391ff0438fbd25976a6c302318951fc8468aaa4b898e3ee2a785e2fca266c44f397c71299253b4`,
-    }),
-  });
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/questions/current`,
+    {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        authorization: `Bearer ${process.env.NEXT_PUBLIC_API_TOKEN}`,
+      }),
+    }
+  );
 
   if (response.status !== 200)
     return {
