@@ -16,7 +16,7 @@ const Home = () => {
         <meta
           property="og:image"
           itemProp="image"
-          content={"/images/NãoChute.png"}
+          content={"http://naochute.com/images/NãoChute.png"}
         />
         <meta property="og:type" content="website" />
         <meta
