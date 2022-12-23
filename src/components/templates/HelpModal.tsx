@@ -50,7 +50,7 @@ const HelpModal = ({
           {title}
         </ModalHeader>
         <ModalCloseButton color={COLORS.PRIMARY} />
-        <ModalBody>
+        <ModalBody overflowY="visible">
           <Flex flexDir="column" gap="30px" alignItems="center">
             <Image src={imgPath} alt={imgAlt} height={200} />
             <Flex flexDir="column" alignItems="flex-start" gap="20px">

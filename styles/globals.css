@@ -16,7 +16,6 @@ a {
 
 body {
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 @media (prefers-color-scheme: dark) {

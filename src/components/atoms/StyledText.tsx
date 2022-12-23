@@ -8,7 +8,7 @@ type StyledTextProps = {
   regularColor?: COLORS;
   size: `${number}px`;
   lineHeight?: `${number}px`;
-  textAlign?: "center" | "left" | "right";
+  textAlign?: "center" | "left" | "right" | "justify";
   boldWeight?: 500 | 600;
   regularWeight?: 400 | 500 | 600;
   fontFamily?: string;

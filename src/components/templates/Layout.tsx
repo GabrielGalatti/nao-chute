@@ -30,8 +30,8 @@ const Layout = ({ children }: LayoutProps) => {
       bgSize="cover"
     >
       <Flex
-        px={["30px", "5%", "10%", "20%"]}
-        py="50px"
+        px={["10px", "5%", "10%", "20%"]}
+        py="30px"
         flexDirection="column"
         gap="40px"
       >
