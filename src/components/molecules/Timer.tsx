@@ -4,12 +4,15 @@ import StyledText from "../atoms/StyledText";
 
 type TimerProps = {
   onExpire: () => void;
+  onTimeUpdate?: (time: number, interval: NodeJS.Timer) => void;
+  leftSeconds: number;
 };
 
-const Timer = ({ onExpire }: TimerProps) => {
+const Timer = ({ onExpire, onTimeUpdate, leftSeconds }: TimerProps) => {
   const { minutes, seconds } = useTimer({
-    seconds: 10,
+    seconds: leftSeconds,
     onExpire,
+    onTimeUpdate,
   });
 
   const timerString = useMemo(

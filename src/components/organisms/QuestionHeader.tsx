@@ -10,9 +10,17 @@ type QuestionHeaderProps = {
   area: QUESTION_AREA;
   onExpire: () => void;
   status: QUESTION_STATUS;
+  onTimeUpdate?: (time: number, interval: NodeJS.Timer) => void;
+  leftSeconds: number;
 };
 
-const QuestionHeader = ({ area, onExpire, status }: QuestionHeaderProps) => {
+const QuestionHeader = ({
+  area,
+  onExpire,
+  status,
+  onTimeUpdate,
+  leftSeconds,
+}: QuestionHeaderProps) => {
   return (
     <Flex
       justifyContent="space-between"
@@ -30,7 +38,11 @@ const QuestionHeader = ({ area, onExpire, status }: QuestionHeaderProps) => {
         key="title"
       />
       {status !== QUESTION_STATUS.FINISHED ? (
-        <DynamicTimer onExpire={onExpire} />
+        <Timer
+          onExpire={onExpire}
+          leftSeconds={leftSeconds}
+          onTimeUpdate={onTimeUpdate}
+        />
       ) : (
         <StyledText
           size="18px"

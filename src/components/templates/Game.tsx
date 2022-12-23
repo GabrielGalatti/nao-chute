@@ -21,6 +21,8 @@ type GameProps = {
   questionStatement: string;
   questionStatus: QUESTION_STATUS;
   result?: Result;
+  onTimeUpdate?: (time: number, interval: NodeJS.Timer) => void;
+  leftSeconds: number;
 };
 
 const Game = ({
@@ -33,10 +35,18 @@ const Game = ({
   questionStatement,
   result,
   questionStatus,
+  leftSeconds,
+  onTimeUpdate,
 }: GameProps) => {
   return (
     <Flex flexDirection="column">
-      <QuestionHeader area={area} onExpire={onExpire} status={questionStatus} />
+      <QuestionHeader
+        area={area}
+        onExpire={onExpire}
+        status={questionStatus}
+        leftSeconds={leftSeconds}
+        onTimeUpdate={onTimeUpdate}
+      />
       <Flex
         justifyContent="flex-start"
         w="100%"

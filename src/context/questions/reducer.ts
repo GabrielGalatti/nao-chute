@@ -40,7 +40,6 @@ export const questionsReducer = (
     },
     [QUESTION_ACTION_TYPES.SET_QUESTION_TIMES]: () => {
       const questionTime = action.payload as QuestionTime;
-
       return {
         questions: [
           ...prevState.questions.filter(

@@ -7,11 +7,11 @@ import ContextProvider from "../context";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <ContextProvider>
-        <Layout>
+      <Layout>
+        <ContextProvider>
           <Component {...pageProps} />
-        </Layout>
-      </ContextProvider>
+        </ContextProvider>
+      </Layout>
     </ChakraProvider>
   );
 }

@@ -1,4 +1,11 @@
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import Game from "../components/templates/Game";
 
@@ -22,11 +29,13 @@ type CurrentState = {
   selectedAnswer?: number;
   result?: Result;
   status: QUESTION_STATUS;
+  secondsLeft: number;
 };
 
 const Start = ({ apiQuestions }: StartProps) => {
-  const initialDate = useMemo(() => new Date(), []);
   const [area, setArea] = useState<QUESTION_AREA>(QUESTION_AREA.EXATAS);
+  const currentTimer = useRef<NodeJS.Timer | null>(null);
+  const currentSeconds = useRef<number>(180);
 
   const {
     state: { questions },
@@ -37,24 +46,15 @@ const Start = ({ apiQuestions }: StartProps) => {
     return apiQuestions.find((question) => question.area === area) as Question;
   }, [area, apiQuestions]);
 
-  const { result, selectedAnswer, status }: CurrentState = useMemo(() => {
-    const q = questions.find((question) => question.id === id) as QuestionState;
-    if (!q || questions.length === 0)
-      return {
-        selectedAnswer: undefined,
-        result: undefined,
-        status: QUESTION_STATUS.STARTED,
-      };
-    return {
-      selectedAnswer: q.answerId,
-      result: q.result,
-      status: q.status || QUESTION_STATUS.STARTED,
-    };
-  }, [questions, id]);
-
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
+  const {
+    answerId: selectedAnswer,
+    result,
+    secondsLeft,
+    status,
+    id: questionId,
+  }: QuestionState = (questions.find(
+    (question) => question.id === id
+  ) as QuestionState) || {};
 
   const onTimeIsOver = useCallback(async () => {
     const response = await getQuestionResultrequest(id);
@@ -83,28 +83,54 @@ const Start = ({ apiQuestions }: StartProps) => {
     [id, answerQuestion]
   );
 
-  const changeArea = useCallback(
-    (selectedArea: QUESTION_AREA) => {
+  const updateQuestionTimes = (secondsLeft: number, interval: NodeJS.Timer) => {
+    currentTimer.current = interval;
+    currentSeconds.current = secondsLeft;
+  };
+
+  const initializeQuestion = useCallback(() => {
+    if (!questionId) {
       setQuestionTimes({
         questionId: id,
-        secondsLeft: 180,
+        secondsLeft: 300,
       });
-      setArea(selectedArea);
-    },
-    [setQuestionTimes, setArea, id]
-  );
+    }
+  }, [id, setQuestionTimes, questionId]);
+
+  useEffect(() => {
+    initializeQuestion();
+  }, [initializeQuestion]);
+
+  useEffect(() => {
+    console.log("id", id);
+    console.log("secondsLeft", secondsLeft);
+  }, [secondsLeft, id]);
+
+  const selectArea = (selectedArea: QUESTION_AREA) => {
+    if (currentTimer.current) {
+      clearInterval(currentTimer.current);
+      currentTimer.current = null;
+    }
+    setQuestionTimes({
+      questionId: id,
+      secondsLeft: currentSeconds.current,
+    });
+    setArea(selectedArea);
+  };
 
   return (
     <Game
       area={area}
-      onChooseArea={(selectedArea) => setArea(selectedArea)}
+      onChooseArea={selectArea}
       onExpire={onTimeIsOver}
       onChooseAnswer={chooseAnswer}
       selectedAnswerIndex={selectedAnswer}
       answers={answers}
       questionStatement={statement}
       result={result}
-      questionStatus={status}
+      questionStatus={status || QUESTION_STATUS.STARTED}
+      leftSeconds={secondsLeft || currentSeconds.current}
+      onTimeUpdate={updateQuestionTimes}
     />
   );
 };
