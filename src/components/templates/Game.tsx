@@ -23,6 +23,8 @@ type GameProps = {
   result?: Result;
   onTimeUpdate?: (time: number, interval: NodeJS.Timer) => void;
   leftSeconds: number;
+  onClickNextQuestion: () => void;
+  hasNextQuestion: boolean;
 };
 
 const Game = ({
@@ -37,6 +39,8 @@ const Game = ({
   questionStatus,
   leftSeconds,
   onTimeUpdate,
+  onClickNextQuestion,
+  hasNextQuestion,
 }: GameProps) => {
   return (
     <Flex flexDirection="column">
@@ -68,6 +72,8 @@ const Game = ({
             questionStatement={questionStatement}
             result={result}
             status={questionStatus}
+            hasNextQuestion={hasNextQuestion}
+            onClickNextQuestion={onClickNextQuestion}
           />
         </Flex>
       </Flex>

@@ -100,17 +100,31 @@ const Start = ({ apiQuestions }: StartProps) => {
     }
   }, [id, setQuestionTimes, questionId]);
 
-  const selectArea = (selectedArea: QUESTION_AREA) => {
-    if (currentTimer.current) {
-      clearInterval(currentTimer.current);
-      currentTimer.current = null;
-    }
-    setQuestionTimes({
-      questionId: id,
-      secondsLeft: currentSeconds.current,
-    });
-    setArea(selectedArea);
-  };
+  const hasNewQuestion = useMemo(() => questions.length !== 3, [questions]);
+
+  const selectArea = useCallback(
+    (selectedArea: QUESTION_AREA) => {
+      if (currentTimer.current) {
+        clearInterval(currentTimer.current);
+        currentTimer.current = null;
+      }
+      setQuestionTimes({
+        questionId: id,
+        secondsLeft: currentSeconds.current,
+      });
+      setArea(selectedArea);
+    },
+    [id, setQuestionTimes, setArea]
+  );
+
+  const onCliclNextQuestion = useCallback(() => {
+    const questionsDone = questions.map((question) => question.id);
+    const areasNotAnswered = apiQuestions
+      .filter((q) => !questionsDone.includes(q.id))
+      .map((q) => q.area);
+
+    selectArea(areasNotAnswered[0]);
+  }, [questions, apiQuestions, selectArea]);
 
   useEffect(() => {
     initializeQuestion();
@@ -133,6 +147,8 @@ const Start = ({ apiQuestions }: StartProps) => {
       questionStatus={status || QUESTION_STATUS.STARTED}
       leftSeconds={secondsLeft || currentSeconds.current}
       onTimeUpdate={updateQuestionTimes}
+      hasNextQuestion={hasNewQuestion}
+      onClickNextQuestion={onCliclNextQuestion}
     />
   );
 };

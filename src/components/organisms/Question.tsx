@@ -15,6 +15,7 @@ import AnswerGroup from "../molecules/AnswerGroup";
 import StyledText from "../atoms/StyledText";
 import { FaMedal } from "react-icons/fa";
 import { COLORS } from "../../config/colors";
+import CommonButton from "../atoms/CommonButton";
 
 type QuestionProps = {
   onChooseAnswer: (id: number) => void;
@@ -23,6 +24,8 @@ type QuestionProps = {
   questionStatement: string;
   result?: Result;
   status: QUESTION_STATUS;
+  hasNextQuestion: boolean;
+  onClickNextQuestion: () => void;
 };
 
 const Question = ({
@@ -32,6 +35,8 @@ const Question = ({
   questionStatement,
   status,
   result,
+  hasNextQuestion,
+  onClickNextQuestion,
 }: QuestionProps) => {
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -113,6 +118,11 @@ const Question = ({
         selectedAnswerIndex={selectAnswerIndex}
         result={result}
       />
+      {status === QUESTION_STATUS.FINISHED && hasNextQuestion && (
+        <Flex w="100%" justifyContent="center">
+          <CommonButton label="Próxima Questão" onClick={onClickNextQuestion} />
+        </Flex>
+      )}
     </Flex>
   );
 };
