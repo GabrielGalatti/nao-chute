@@ -15,10 +15,10 @@ const Timer = ({ onExpire, onTimeUpdate, leftSeconds }: TimerProps) => {
     onTimeUpdate,
   });
 
-  const timerString = useMemo(
-    () => `Tempo Restante:*<br>* *<b>${minutes}:${seconds}<b>*`,
-    [minutes, seconds]
-  );
+  const timerString = useMemo(() => {
+    const secondsFormatted = seconds < 10 ? `0${seconds}` : seconds;
+    return `Tempo Restante:*<br>* *<b>${minutes}:${secondsFormatted}<b>*`;
+  }, [minutes, seconds]);
 
   return (
     <StyledText
