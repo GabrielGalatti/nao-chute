@@ -10,9 +10,11 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   const helpSteps = [
-    "Você terá que responder *<b>uma pergunta de cada<b>* *<br>* *<b>área (exatas, humanas e biológicas)<b>*",
-    "Você terá *<b>5 minutos para responder cada<b>* *<br>* *<b>pergunta<b>*",
-    "Você terá acesso à uma análise dos seus resultados",
+    "Você terá que responder *<b>uma pergunta de cada<b>* *<br>* *<b>área (exatas, humanas e ciências)<b>*",
+    "*<b>Você pode alternar entre as áreas clicando nos botões ao lado da questão<b>*",
+    "Você terá *<b>3 minutos para responder cada<b>* *<br>* *<b>pergunta<b>*",
+    "No final você poderá ver o que outras pessoas responderam *<br>* e se você acertou ou errou",
+    "E lembre-se: *<b>NÃO CHUTE<b>*",
   ];
   const { onClose, onOpen, isOpen } = useDisclosure();
   useEffect(() => {
