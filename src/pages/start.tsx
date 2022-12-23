@@ -95,7 +95,7 @@ const Start = ({ apiQuestions }: StartProps) => {
     if (!questionId) {
       setQuestionTimes({
         questionId: id,
-        secondsLeft: 300,
+        secondsLeft: 180,
       });
     }
   }, [id, setQuestionTimes, questionId]);
